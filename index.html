@@ -60,7 +60,7 @@
 var map = new mapboxgl.Map({
     container: 'map', // container id
   style: 'https://geoserveis.icgc.cat/contextmaps/positron.json', //Fond de carte 
-	center: [-2.802, 48.1],
+	center: [29.4241, 98.4936],
 	zoom :7.7,
 	pitch : 15
 });
@@ -89,9 +89,9 @@ map.on('style.load', function() {
 	
     // Add data (Geojson)
 
- map.addSource('Municipalities', {
+ map.addSource('Neighborhoods', {
             type: 'geojson',
-            data: 'https://raw.githubusercontent.com/mastersigat/data/main/communesBZH.geojson' 
+            data: 'san-antonio.geojson' 
         });
  
   
@@ -99,9 +99,9 @@ map.on('style.load', function() {
 	// Municipalities symbology
 	
 map.addLayer({
-        'id': 'Municipalities',
+        'id': 'Neighborhoods',
         'type': 'fill',
-        'source': 'Municipalities',
+        'source': 'Neighborhoods',Municipalities
         'layout': {'visibility': 'visible'},
 		'paint': {'fill-outline-color': '#000000',
                  'fill-color': {
@@ -117,27 +117,11 @@ map.addLayer({
 }); 
 	
 	
-	       // Add Departments
-
-       map.addSource('lignes', {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/mastersigat/data/main/Departements.geojson' 
-        });
-
-     map.addLayer({
-            'id': 'Lignes',
-            'type': 'line',
-            'source': 'lignes',
-            'paint': {'line-width': 2.5,
-                     'line-color': '#111111'}
-     });   
-
-
     // Popup configuration
 
     map.on('mousemove', function (e) {
         var states = map.queryRenderedFeatures(e.point, {
-            layers: ['Municipalities']
+            layers: ['Neighborhoods']
         });
         if (states.length > 0) {
             document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.NOM_COM_M + "</strong></h3><p><strong><em>" + states[0].properties.density + "</strong> hab./km2</em></p>"
