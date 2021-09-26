@@ -91,7 +91,7 @@ map.on('style.load', function() {
 
  map.addSource('Neighborhoods', {
             type: 'geojson',
-            data: 'san-antonio.geojson' 
+            data: 'https://raw.githubusercontent.com/mastersigat/data/main/communesBZH.geojson' 
         });
  
   
@@ -99,9 +99,9 @@ map.on('style.load', function() {
 	// Municipalities symbology
 	
 map.addLayer({
-        'id': 'Neighborhoods',
+        'id': 'Municipalities',
         'type': 'fill',
-        'source': 'Neighborhoods',Municipalities
+        'source': 'Municipalities',
         'layout': {'visibility': 'visible'},
 		'paint': {'fill-outline-color': '#000000',
                  'fill-color': {
@@ -117,11 +117,27 @@ map.addLayer({
 }); 
 	
 	
+	       // Add Departments
+
+       map.addSource('lignes', {
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/mastersigat/data/main/Departements.geojson' 
+        });
+
+     map.addLayer({
+            'id': 'Lignes',
+            'type': 'line',
+            'source': 'lignes',
+            'paint': {'line-width': 2.5,
+                     'line-color': '#111111'}
+     });   
+
+
     // Popup configuration
 
     map.on('mousemove', function (e) {
         var states = map.queryRenderedFeatures(e.point, {
-            layers: ['Neighborhoods']
+            layers: ['Municipalities']
         });
         if (states.length > 0) {
             document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.NOM_COM_M + "</strong></h3><p><strong><em>" + states[0].properties.density + "</strong> hab./km2</em></p>"
